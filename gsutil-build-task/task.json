@@ -1,0 +1,69 @@
+{
+  "$schema": "https://aka.ms/vsts-tasks.schema.json",
+  "id": "6B35BC48-365E-4F91-A382-E5FC5417AF99",
+  "name": "gsutil-build-task",
+  "friendlyName": "Gcloud Command Line",
+  "author": "Google Cloud Tools",
+  "description": "Execute an arbitrary gsutil command.",
+  "helpMarkDown": "[List of gsutil commands](https://cloud.google.com/storage/docs/gsutil).",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 2
+  },
+  "category": "Utility",
+  "demands": [],
+  "groups": [
+    {
+      "name": "advanced",
+      "displayName": "Advanced Options",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "serviceEndpoint",
+      "label": "GCP connection",
+      "type": "connectedService:GoogleCloudServiceEndpoint",
+      "required": true,
+      "helpMarkDown": "The Google Cloud Platform connection to use."
+    },
+    {
+      "name": "command",
+      "label": "Command Line",
+      "type": "string",
+      "required": true,
+      "helpMarkDown": "The [gsutil command](https://cloud.google.com/storage/docs/gsutil) to run."
+    },
+    {
+      "name": "includeProjectParam",
+      "label": "Add project parameter",
+      "type": "boolean",
+      "required": true,
+      "helpMarkDown": "Include the `-p <project-id>` parameter in the command line, taking the project id from the connection.",
+      "defaultValue": false
+    },
+    {
+      "name": "ignoreReturnCode",
+      "label": "Ignore Return Code",
+      "type": "boolean",
+      "required": true,
+      "helpMarkDown": "When checked, this task will succeed even if gsutil reports a failure.",
+      "defaultValue": false,
+      "groupName": "advanced"
+    },
+    {
+      "name": "outputVariable",
+      "label": "StdOut build variable",
+      "type": "string",
+      "required": false,
+      "helpMarkDown": "The name of a build variable in which the output from gsutil is saved.",
+      "groupName": "advanced"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "run.js"
+    }
+  }
+}
